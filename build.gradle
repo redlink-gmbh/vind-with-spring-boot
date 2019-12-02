@@ -1,0 +1,50 @@
+plugins {
+	id 'org.springframework.boot' version '2.1.9.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.6.RELEASE'
+	id 'java'
+}
+
+group = 'at.redlink'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+	mavenCentral()
+	maven {
+		url 'http://maven.restlet.org'
+	}
+}
+
+dependencies {
+	compile 'org.springframework.boot:spring-boot-starter-actuator'
+	compile 'org.springframework.boot:spring-boot-starter-web'
+	compile 'org.springframework.boot:spring-boot-configuration-processor'
+	compile 'com.rbmhtechnology.vind:vind-api'
+	compile("org.apache.solr:solr-core:7.5.0"){
+		force = true
+		exclude group: 'org.apache.logging.log4j', module: 'log4j-slf4j-impl'
+	}
+	compile("org.apache.solr:solr-solrj:7.5.0"){
+		force = true
+	}
+	runtime 'com.rbmhtechnology.vind:remote-solr-server'
+	testCompile 'org.springframework.boot:spring-boot-starter-test'
+	testCompile 'com.rbmhtechnology.vind:vind-testsuite'
+	testCompile 'junit:junit'
+	testRuntime("io.dropwizard.metrics:metrics-core:3.2.6"){
+		force = true
+	}
+}
+
+dependencyManagement {
+	dependencies {
+		dependencySet(group: 'com.rbmhtechnology.vind', version: '2.3.0') {
+			entry 'vind-api'
+			entry 'embedded-solr-server'
+			entry 'remote-solr-server'
+			entry 'vind-testsuite'
+		}
+		dependency group: 'org.restlet.jee', name: 'org.restlet', version: '2.3.0'
+		dependency group: 'junit', name: 'junit', version: '4.12'
+	}
+}

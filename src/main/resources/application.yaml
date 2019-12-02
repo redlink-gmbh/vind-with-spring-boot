@@ -1,0 +1,9 @@
+vind.collection: localdocs
+management:
+  server:
+    port: 8082
+  endpoint.health.show-details: always
+  health:
+    db.enabled: true
+    solr.enabled: true
+    vind.enabled: true
