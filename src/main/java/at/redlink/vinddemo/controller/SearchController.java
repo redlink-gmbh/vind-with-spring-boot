@@ -2,6 +2,7 @@ package at.redlink.vinddemo.controller;
 
 import at.redlink.vinddemo.service.SearchService;
 import at.redlink.vinddemo.transport.DocSearchResult;
+import at.redlink.vinddemo.transport.TimeRange;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,9 +25,10 @@ public class SearchController {
             @RequestParam(defaultValue = "10") int limit,
             @RequestParam(defaultValue = "0") int offset,
             @RequestParam(name = "q", defaultValue = "*") String searchTerm,
-            @RequestParam(name = "tag", required = false) List<String> tagFilter
-    ) {
-        return searchService.search(limit, offset, searchTerm, tagFilter);
+            @RequestParam(name = "tag", required = false) List<String> tagFilter,
+            @RequestParam(name = "range", required = false) TimeRange timeRange
+            ) {
+        return searchService.search(limit, offset, searchTerm, tagFilter, timeRange);
     }
 
 }

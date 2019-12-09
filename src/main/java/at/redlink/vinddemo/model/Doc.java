@@ -10,6 +10,7 @@ public class Doc {
     private ZonedDateTime date;
     private List<String> tags;
     private double rating;
+    private double scoring;
 
     public String getId() {
         return id;
@@ -53,6 +54,15 @@ public class Doc {
 
     public Doc setRating(double rating) {
         this.rating = rating;
+        return this;
+    }
+
+    public double getScoring() {
+        return scoring;
+    }
+
+    public Doc setScoring(double scoring) {
+        this.scoring = scoring;
         return this;
     }
 }

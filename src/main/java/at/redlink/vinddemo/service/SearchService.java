@@ -3,9 +3,11 @@ package at.redlink.vinddemo.service;
 import at.redlink.vinddemo.model.DocFactory;
 import at.redlink.vinddemo.transport.DocSearchResult;
 import at.redlink.vinddemo.transport.TagFacet;
+import at.redlink.vinddemo.transport.TimeRange;
 import com.rbmhtechnology.vind.api.SearchServer;
 import com.rbmhtechnology.vind.api.query.FulltextSearch;
 import com.rbmhtechnology.vind.api.query.Search;
+import com.rbmhtechnology.vind.api.query.datemath.DateMathExpression;
 import com.rbmhtechnology.vind.api.query.filter.Filter;
 import com.rbmhtechnology.vind.api.query.sort.Sort;
 import com.rbmhtechnology.vind.api.result.FacetResults;
@@ -14,6 +16,7 @@ import com.rbmhtechnology.vind.api.result.facet.FacetValue;
 import com.rbmhtechnology.vind.api.result.facet.TermFacetResult;
 import org.springframework.stereotype.Service;
 
+import java.time.DayOfWeek;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,7 +34,8 @@ public class SearchService {
             int limit,
             int offset,
             String searchTerm,
-            List<String> tagFilter
+            List<String> tagFilter,
+            TimeRange timeRange
     ) {
         FulltextSearch search = Search.fulltext(searchTerm).slice(offset, limit).sort(Sort.desc(DocFactory.DATE_FIELD));
 
@@ -43,6 +47,14 @@ public class SearchService {
                             .map((String tag) -> Filter.eq(DocFactory.TAGS_FIELD, tag))
                             .collect(Filter.AndCollector)
             );
+        }
+
+        if(timeRange != null) {
+            switch (timeRange) {
+                case PAST_HOUR: search.filter(DocFactory.DATE_FIELD.after(new DateMathExpression().sub(1, DateMathExpression.TimeUnit.HOUR)));break;
+                case PAST_DAY: search.filter(DocFactory.DATE_FIELD.after(new DateMathExpression().sub(1, DateMathExpression.TimeUnit.DAY)));break;
+                case PAST_WEEK: search.filter(DocFactory.DATE_FIELD.after(new DateMathExpression().sub(7, DateMathExpression.TimeUnit.DAYS)));break;
+            }
         }
 
         SearchResult vindResult = searchServer.execute(search, DocFactory.FACTORY);

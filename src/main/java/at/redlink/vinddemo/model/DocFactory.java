@@ -17,7 +17,8 @@ public class DocFactory {
             .setFullText(true)
             .buildTextField("title");
 
-    public static final SingleValueFieldDescriptor<ZonedDateTime> DATE_FIELD = new FieldDescriptorBuilder<ZonedDateTime>()
+    public static final SingleValueFieldDescriptor.DateFieldDescriptor<ZonedDateTime> DATE_FIELD = new FieldDescriptorBuilder<ZonedDateTime>()
+            .setFacet(true)
             .buildDateField("date");
 
     public static final MultiValueFieldDescriptor<String> TAGS_FIELD = new FieldDescriptorBuilder<String>()
@@ -50,7 +51,8 @@ public class DocFactory {
                 .setTitle(document.getValue(TITLE_FIELD))
                 .setDate(document.getValue(DATE_FIELD))
                 .setTags((List) document.getValues().get(TAGS_FIELD.getName()))
-                .setRating(document.getValue(RATING_FIELD));
+                .setRating(document.getValue(RATING_FIELD))
+                .setScoring(document.getScore());
     }
 
 }

@@ -33,16 +33,16 @@ public class ServiceTest {
 
     @Test
     public void testIndexAndSearch() throws InterruptedException {
-        DocSearchResult result = searchService.search(10, 0 , "*", null);
+        DocSearchResult result = searchService.search(10, 0 , "*", null, null);
         Assert.assertEquals(0, result.getNumOfResults());
 
         indexingService.indexDoc("1", "Some title", ZonedDateTime.now(), Collections.emptySet(), 1);
 
-        result = searchService.search(10, 0 , "*", null);
+        result = searchService.search(10, 0 , "*", null, null);
 
         Thread.sleep(1100);
 
-        result = searchService.search(10, 0 , "*", null);
+        result = searchService.search(10, 0 , "*", null, null);
         Assert.assertEquals(1, result.getNumOfResults());
     }
 
