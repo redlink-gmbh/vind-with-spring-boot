@@ -16,7 +16,6 @@ import com.rbmhtechnology.vind.api.result.facet.FacetValue;
 import com.rbmhtechnology.vind.api.result.facet.TermFacetResult;
 import org.springframework.stereotype.Service;
 
-import java.time.DayOfWeek;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;

@@ -25,14 +25,18 @@ Therefore:
 * exclude Solr Auto Configuration for the application `@SpringBootApplication(exclude = SolrAutoConfiguration.class)`
 * try to use embedded solr server with caution (see the paragraph about testing)
 
-### Configuration
+### Search Server Connection
 The simplest way to use a VIND search server is to outcheck a bean, like in [VindConfiguration](./src/main/java/at/redlink/vinddemo/configuration/VindConfiguration.java).
 In the demo case a local search server is linked.
 
 ### Development and local setup
-#### Run local vind server
+#### Run local VIND server
 The easiest way to run a local VIND server is to use the [vind docker image](https://hub.docker.com/r/redlinkgmbh/vind-solr-server).
 The repository includes a [docker-compose file](./docker-compose.yaml) that starts a solr server on `localhost:8983/solr` and creates a vind core named `localdocs`.
+
+### Create a VIND collection on a running solr cloud
+VIND includes a collection management tool, that allows to create and update vind collections with a single command line call.
+The tool is described [here](https://github.com/RBMHTechnology/vind/tree/master/backend/solr-ext/collection-managment-tool).
 
 ### Indexing
 The demo shows how to index articles by using a simple [document factory](./src/main/java/at/redlink/vinddemo/model/DocFactory.java). Here the fields that are used for indexing are defined.

@@ -3,10 +3,12 @@ package at.redlink.vinddemo.configuration;
 import at.redlink.vinddemo.properties.VindProperties;
 import com.rbmhtechnology.vind.api.SearchServer;
 import com.rbmhtechnology.vind.configure.SearchConfiguration;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
+@EnableConfigurationProperties(VindProperties.class)
 public class VindConfiguration {
 
     private SearchServer searchServer;

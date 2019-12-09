@@ -10,8 +10,13 @@ sourceCompatibility = '1.8'
 
 repositories {
 	mavenCentral()
+	// for dependency issues with restlet in solr
 	maven {
 		url 'http://maven.restlet.org'
+	}
+	// for snapshot vind testcontainer
+	maven {
+		url 'https://oss.sonatype.org/content/repositories/snapshots/'
 	}
 }
 
@@ -20,6 +25,8 @@ dependencies {
 	compile 'org.springframework.boot:spring-boot-starter-web'
 	compile 'org.springframework.boot:spring-boot-configuration-processor'
 	compile 'com.rbmhtechnology.vind:vind-api'
+
+	// spring has a newer solr version, so force an older one
 	compile("org.apache.solr:solr-core:7.5.0"){
 		force = true
 		exclude group: 'org.apache.logging.log4j', module: 'log4j-slf4j-impl'
@@ -27,10 +34,17 @@ dependencies {
 	compile("org.apache.solr:solr-solrj:7.5.0"){
 		force = true
 	}
+
 	runtime 'com.rbmhtechnology.vind:remote-solr-server'
+
 	testCompile 'org.springframework.boot:spring-boot-starter-test'
-	testCompile 'com.rbmhtechnology.vind:vind-testsuite'
 	testCompile 'junit:junit'
+
+	//vind testcontainers (the best way to test)
+	testCompile 'io.redlink.utils:testcontainers:2.0.0-SNAPSHOT'
+
+	// deal with dependecy hell if using solr embedded server
+	testCompile 'com.rbmhtechnology.vind:vind-testsuite'
 	testRuntime("io.dropwizard.metrics:metrics-core:3.2.6"){
 		force = true
 	}

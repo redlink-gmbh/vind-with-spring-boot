@@ -23,4 +23,9 @@ public class IndexingService {
         Document document = DocFactory.createDocument(id, title, date, tags, rating);
         this.searchServer.indexWithin(document, COMMIT_WITHIN_MS);
     }
+
+    public void clear() {
+        this.searchServer.clearIndex();
+        this.searchServer.commit();
+    }
 }
