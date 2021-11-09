@@ -1,3 +1,7 @@
+**Note:** VIND has been discontinued
+
+---
+
 # Vind in Spring Boot Applications
 This repo shows how to integrate VIND in Spring Boot applications. It is not about the functionality of VIND itself, which is exhaustively described [in the repo](https://github.com/RBMHTechnology/vind)
 and the linked [feature documentation](https://rbmhtechnology.github.io/vind/). It contains a simple demo application including some best practices regarding development, testing, dependency management etc.
